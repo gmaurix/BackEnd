@@ -1,5 +1,4 @@
-
-  const fs = require("fs");
+const fs = require("fs");
 
 const objProducto1 = {
   title: "Escuadras",
@@ -7,7 +6,6 @@ const objProducto1 = {
   thumbnail:
     "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
 };
-
 const objProducto2 = {
   title: "Calculadora",
   price: 123.45,
@@ -21,8 +19,8 @@ const objProducto3 = {
     "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
 };
 
- 
-class Contenedor {
+
+module.export= class Contenedor {
   constructor(file) {
     this.file = file;
     this.datos = [];
@@ -74,31 +72,23 @@ class Contenedor {
   async deleteById(id){
     try {
       const d = await fs.promises.readFile(this.file, "utf-8");
-      if (d && JSON.parse(d, null, 2).find((pd) => pd.id === id)) {        
+      if (d) {        
         const p = JSON.parse(d, null, 2).filter((pd) => pd.id !== id);
         await fs.promises.writeFile(this.file,JSON.stringify(p,null,2))
         console.log(`El producto con id: ${id}, fue eliminado`)
         
       }else{        
-        console.log(`No existe producto con id: ${id} `)
-   
-   }
+        
+      }
       
     } catch (error) {
       console.log('Algon anda mal')
     }
   }
 
-  async deleteAll() {
-    try {
-      await fs.promises.unlink(this.file);
-      return null;
-    } catch (error) {
-      console.log("No se ecuentra el archivo");
-    }
-  }
-}
 
+  
+}
 
 const contenedor = new Contenedor("archivo.txt");
 
@@ -109,7 +99,7 @@ function fn() {
 }
 
 
-function fnById(id) {
+function fnByid(id) {
   contenedor.getById(id);
 }
 function deleteById(id) {
@@ -118,15 +108,9 @@ function deleteById(id) {
 function getT(){
  contenedor.getAll()
 }
+getT()
+//fnByid(1);
 
-function delAll(){
-  contenedor.deleteAll();
-}
+//deleteById(2);
 
 //fn();
-//getT()
-//fnById(2);
-//deleteById(20);
-//delAll()
-
-
