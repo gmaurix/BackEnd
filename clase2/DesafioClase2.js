@@ -45,11 +45,11 @@ class Contenedor {
   async getById(id) {
     try {
       const da = await fs.promises.readFile(this.file, "utf-8");
-      if (da) {
+      if (da && JSON.parse(da, null, 2).find((pd) => pd.id === id)) {
         const p = JSON.parse(da, null, 2).find((pd) => pd.id === id);
         console.log(p);
       } else {
-        console.log("No existe producto con id");
+        console.log(`No existe producto con id: ${id}`);
       }
     } catch (error) {
       console.log(error);
@@ -125,7 +125,7 @@ function delAll(){
 
 //fn();
 //getT()
-//fnById(2);
+fnById(1);
 //deleteById(20);
 //delAll()
 
