@@ -7,7 +7,6 @@ const objProducto1 = {
   thumbnail:
     "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
 };
-
 const objProducto2 = {
   title: "Calculadora",
   price: 123.45,
@@ -22,7 +21,7 @@ const objProducto3 = {
 };
 
  
-class Contenedor {
+module.exports=  class Contenedor {
   constructor(file) {
     this.file = file;
     this.datos = [];
@@ -47,7 +46,7 @@ class Contenedor {
       const da = await fs.promises.readFile(this.file, "utf-8");
       if (da && JSON.parse(da, null, 2).find((pd) => pd.id === id)) {
         const p = JSON.parse(da, null, 2).find((pd) => pd.id === id);
-        console.log(p);
+        return(p);
       } else {
         console.log(`No existe producto con id: ${id}`);
       }
@@ -64,7 +63,7 @@ class Contenedor {
         this.datos.map((producto) => {
           if (this.id < producto.id) this.id = producto.id;
         });
-        console.log(datos)
+        return datos
        
       }
     } catch (error) {
@@ -88,7 +87,6 @@ class Contenedor {
       console.log('Algon anda mal')
     }
   }
-
   async deleteAll() {
     try {
       await fs.promises.unlink(this.file);
@@ -97,36 +95,6 @@ class Contenedor {
       console.log("No se ecuentra el archivo");
     }
   }
-}
-
-
-const contenedor = new Contenedor("archivo.txt");
-
-function fn() {
-  contenedor.save(objProducto1);
-  contenedor.save(objProducto2);
-  contenedor.save(objProducto3);
-}
-
-
-function fnById(id) {
-  contenedor.getById(id);
-}
-function deleteById(id) {
-  contenedor.deleteById(id);
-}
-function getT(){
- contenedor.getAll()
-}
-
-function delAll(){
-  contenedor.deleteAll();
-}
-
-//fn();
-//getT()
-fnById(1);
-//deleteById(20);
-//delAll()
+};
 
 
